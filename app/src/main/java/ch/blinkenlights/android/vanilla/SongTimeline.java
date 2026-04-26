@@ -1040,6 +1040,24 @@ public final class SongTimeline {
 	}
 
 	/**
+	 * Removes all songs after the given position in one shot.
+	 * @param pos last index to keep; everything after is dropped
+	 */
+	public void removeSongsAfter(int pos) {
+		synchronized (this) {
+			if (pos + 1 >= mSongs.size())
+				return;
+			saveActiveSongs();
+			mSongs.subList(pos + 1, mSongs.size()).clear();
+			if (mCurrentPos > pos)
+				mCurrentPos = pos;
+			broadcastChangedSongs();
+		}
+		changed();
+	}
+
+
+	/**
 	 * Broadcasts that the timeline state has changed.
 	 */
 	private void changed()

@@ -2395,4 +2395,12 @@ public final class PlaybackService extends Service
 		mTimeline.removeSongPosition(which);
 	}
 
+	/**
+	 * Removes every song after the given queue position.
+	 * @param pos last index to keep
+	 */
+	public void removeSongsAfter(int pos) {
+		mTimeline.removeSongsAfter(pos);
+	}
+
 }

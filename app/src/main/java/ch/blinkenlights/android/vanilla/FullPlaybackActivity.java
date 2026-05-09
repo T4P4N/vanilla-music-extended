@@ -45,7 +45,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import io.github.jeffshee.visualizer.views.VisualizerView;
@@ -721,11 +720,12 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 			float strokeWidth = settings.getInt(PrefKeys.WAVEFORM_PATH_STROKE_WIDTH, PrefDefaults.WAVEFORM_PATH_STROKE_WIDTH);
 			int num = settings.getInt(PrefKeys.WAVEFORM_SAMP_POINTS, PrefDefaults.WAVEFORM_SAMP_POINTS);
 			float amp = settings.getInt(PrefKeys.WAVEFORM_AMPLITUDE, PrefDefaults.WAVEFORM_AMPLITUDE) * 0.01f;
+			int color = settings.getInt(PrefKeys.WAVEFORM_COLOR, PrefDefaults.WAVEFORM_COLOR);
 
 			Paint paint = new Paint();
 			paint.setStrokeWidth(strokeWidth);
 			paint.setAntiAlias(true);
-			paint.setColor(Color.argb(128, 255, 255, 255));
+			paint.setColor(color);
 			paint.setStyle(Paint.Style.STROKE);
 
 			PlaybackService service = PlaybackService.get(this);

@@ -68,6 +68,7 @@ public class PrefDefaults {
 	public static final int     WAVEFORM_SAMP_POINTS = 256;
 	public static final int     WAVEFORM_AMPLITUDE = 100;
 	public static final int     WAVEFORM_PATH_STROKE_WIDTH = 5;
+	public static final int     WAVEFORM_COLOR = 0x80FFFFFF;
 	public static final boolean ENABLE_TRACK_REPLAYGAIN = false;
 	public static final boolean ENABLE_ALBUM_REPLAYGAIN = false;
 	public static final int     REPLAYGAIN_BUMP = 75; // seek bar is 150 -> 75 == middle == 0

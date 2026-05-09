@@ -54,4 +54,9 @@ THE SOFTWARE.
 		vanilla:sbpMaxValue="500"
 		vanilla:sbpSummaryValueMultiplication="0.01"
 		android:dependency="enable_visualizer" />
+	<ch.blinkenlights.android.vanilla.ColorPreference
+		android:key="waveform_color"
+		android:title="@string/waveform_color"
+		android:defaultValue="-2130706433"
+		android:dependency="enable_visualizer" />
 </PreferenceScreen>

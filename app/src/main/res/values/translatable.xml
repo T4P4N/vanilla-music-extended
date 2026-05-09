@@ -289,6 +289,7 @@ THE SOFTWARE.
 	<string name="waveform_path_stroke_width">Waveform line thickness</string>
 	<string name="waveform_path_num">Waveform sampling points</string>
 	<string name="waveform_path_amp">Waveform amplitude</string>
+	<string name="waveform_color">Waveform color</string>
 
 	<string name="tabs">Tab order</string>
 	<string name="customize_tab_order">Adjust the order and visibility of library tabs</string>

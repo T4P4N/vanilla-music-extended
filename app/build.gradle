@@ -1,17 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    lintOptions {
+    namespace "ch.blinkenlights.android.vanilla"
+
+    lint {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'
+        abortOnError false
     }
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "ch.blinkenlights.android.vanilla"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
     }
 
     buildTypes {
@@ -26,8 +29,9 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -36,6 +40,7 @@ dependencies {
     implementation 'androidx.media:media:1.6.0'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'com.github.jeffshee:NextGenVisualizer:829e239460'
+    implementation 'com.github.skydoves:colorpickerview:2.4.0'
     implementation 'junit:junit:4.12'
     compileOnly 'androidx.annotation:annotation:1.0.0'
 }

@@ -69,6 +69,12 @@ public class PrefDefaults {
 	public static final int     WAVEFORM_AMPLITUDE = 100;
 	public static final int     WAVEFORM_PATH_STROKE_WIDTH = 5;
 	public static final int     WAVEFORM_COLOR = 0x80FFFFFF;
+	public static final String  VISUALIZER_TYPE = "0";
+	public static final int     VISUALIZER_FILL_COLOR = 0x40FFFFFF;
+	public static final boolean VISUALIZER_ENABLE_FILL = false;
+	public static final int     FFT_CWAVE_NUM = 64;
+	public static final int     FFT_CWAVE_AMP = 100;
+	public static final int     FFT_CWAVE_RADIUS = 40;
 	public static final boolean ENABLE_TRACK_REPLAYGAIN = false;
 	public static final boolean ENABLE_ALBUM_REPLAYGAIN = false;
 	public static final int     REPLAYGAIN_BUMP = 75; // seek bar is 150 -> 75 == middle == 0

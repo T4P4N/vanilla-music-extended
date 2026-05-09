@@ -66,6 +66,12 @@ public class PrefKeys {
 	public static final String WAVEFORM_AMPLITUDE = "waveform_amplitude";
 	public static final String WAVEFORM_PATH_STROKE_WIDTH = "waveform_path_stroke_width";
 	public static final String WAVEFORM_COLOR = "waveform_color";
+	public static final String VISUALIZER_TYPE = "visualizer_type";
+	public static final String VISUALIZER_FILL_COLOR = "visualizer_fill_color";
+	public static final String VISUALIZER_ENABLE_FILL = "visualizer_enable_fill";
+	public static final String FFT_CWAVE_NUM = "fft_cwave_num";
+	public static final String FFT_CWAVE_AMP = "fft_cwave_amp";
+	public static final String FFT_CWAVE_RADIUS = "fft_cwave_radius";
 	public static final String ENABLE_TRACK_REPLAYGAIN = "enable_track_replaygain";
 	public static final String ENABLE_ALBUM_REPLAYGAIN = "enable_album_replaygain";
 	public static final String REPLAYGAIN_BUMP = "replaygain_bump";

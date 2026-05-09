@@ -286,10 +286,20 @@ THE SOFTWARE.
 	<string name="visualizations">Visualizations</string>
 	<string name="enable_visualizer_title">Enable visualization</string>
 	<string name="enable_visualizer_summary">Show the audio visualizer on the playback screen</string>
+	<string name="visualizer_type_title">Visualizer type</string>
+	<string name="visualizer_type_waveform">Waveform</string>
+	<string name="visualizer_type_fft_bar">FFT Circle Wave</string>
 	<string name="waveform_path_stroke_width">Waveform line thickness</string>
 	<string name="waveform_path_num">Waveform sampling points</string>
 	<string name="waveform_path_amp">Waveform amplitude</string>
-	<string name="waveform_color">Waveform color</string>
+	<string name="waveform_color">Visualizer color</string>
+	<string name="visualizer_fill_color">Visualizer fill color</string>
+	<string name="visualizer_enable_fill">Enable fill</string>
+	<string name="fft_bar_path_num">FFT Circle Wave count</string>
+	<string name="fft_bar_path_amp">FFT Circle Wave amplitude</string>
+	<string name="fft_bar_path_gap">FFT Circle Wave radius</string>
+	<string name="visualizer_category_waveform">Waveform settings</string>
+	<string name="visualizer_category_fft_bar">FFT Circle Wave settings</string>
 
 	<string name="tabs">Tab order</string>
 	<string name="customize_tab_order">Adjust the order and visibility of library tabs</string>

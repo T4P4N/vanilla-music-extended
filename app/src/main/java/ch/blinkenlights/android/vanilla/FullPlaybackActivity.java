@@ -48,7 +48,10 @@ import android.content.DialogInterface;
 import android.graphics.Paint;
 
 import io.github.jeffshee.visualizer.views.VisualizerView;
+import io.github.jeffshee.visualizer.painters.Painter;
+import io.github.jeffshee.visualizer.painters.fft.FftCWave;
 import io.github.jeffshee.visualizer.painters.waveform.WfmAnalog;
+import io.github.jeffshee.visualizer.painters.modifier.Compose;
 import io.github.jeffshee.visualizer.utils.VisualizerHelper;
 
 
@@ -717,20 +720,42 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 				mVisualizerHelper.release();
 			}
 
-			float strokeWidth = settings.getInt(PrefKeys.WAVEFORM_PATH_STROKE_WIDTH, PrefDefaults.WAVEFORM_PATH_STROKE_WIDTH);
-			int num = settings.getInt(PrefKeys.WAVEFORM_SAMP_POINTS, PrefDefaults.WAVEFORM_SAMP_POINTS);
-			float amp = settings.getInt(PrefKeys.WAVEFORM_AMPLITUDE, PrefDefaults.WAVEFORM_AMPLITUDE) * 0.01f;
 			int color = settings.getInt(PrefKeys.WAVEFORM_COLOR, PrefDefaults.WAVEFORM_COLOR);
+			boolean fillEnabled = settings.getBoolean(PrefKeys.VISUALIZER_ENABLE_FILL, PrefDefaults.VISUALIZER_ENABLE_FILL);
+			int fillColor = settings.getInt(PrefKeys.VISUALIZER_FILL_COLOR, PrefDefaults.VISUALIZER_FILL_COLOR);
 
 			Paint paint = new Paint();
-			paint.setStrokeWidth(strokeWidth);
 			paint.setAntiAlias(true);
 			paint.setColor(color);
 			paint.setStyle(Paint.Style.STROKE);
 
+			String type = settings.getString(PrefKeys.VISUALIZER_TYPE, PrefDefaults.VISUALIZER_TYPE);
+			Painter painter;
+			if ("1".equals(type)) {
+				int num = settings.getInt(PrefKeys.FFT_CWAVE_NUM, PrefDefaults.FFT_CWAVE_NUM);
+				float amp = settings.getInt(PrefKeys.FFT_CWAVE_AMP, PrefDefaults.FFT_CWAVE_AMP) * 0.01f;
+				float radius = settings.getInt(PrefKeys.FFT_CWAVE_RADIUS, PrefDefaults.FFT_CWAVE_RADIUS) * 0.01f;
+				paint.setStrokeWidth(2f); // Default for FftCWave
+				painter = new FftCWave(paint, 0, 2000, num, "li", "a", false, false, radius, amp);
+
+				if (fillEnabled) {
+					Paint fillPaint = new Paint(paint);
+					fillPaint.setColor(fillColor);
+					fillPaint.setStyle(Paint.Style.FILL);
+					Painter fillPainter = new FftCWave(fillPaint, 0, 2000, num, "li", "a", false, false, radius, amp);
+					painter = new Compose(fillPainter, painter);
+				}
+			} else {
+				float strokeWidth = settings.getInt(PrefKeys.WAVEFORM_PATH_STROKE_WIDTH, PrefDefaults.WAVEFORM_PATH_STROKE_WIDTH);
+				int num = settings.getInt(PrefKeys.WAVEFORM_SAMP_POINTS, PrefDefaults.WAVEFORM_SAMP_POINTS);
+				float amp = settings.getInt(PrefKeys.WAVEFORM_AMPLITUDE, PrefDefaults.WAVEFORM_AMPLITUDE) * 0.01f;
+				paint.setStrokeWidth(strokeWidth);
+				painter = new WfmAnalog(paint, 0, 2000, num, amp);
+			}
+
 			PlaybackService service = PlaybackService.get(this);
 			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
-			mVisualizerView.setup(mVisualizerHelper, new WfmAnalog(paint, 0, 2000, num, amp));
+			mVisualizerView.setup(mVisualizerHelper, painter);
 			mVisualizerView.setFps(false);
 			mVisualizerView.setVisibility(View.VISIBLE);
 			mVisualizerView.bringToFront();

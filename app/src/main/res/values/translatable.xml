@@ -286,6 +286,9 @@ THE SOFTWARE.
 	<string name="visualizations">Visualizations</string>
 	<string name="enable_visualizer_title">Enable visualization</string>
 	<string name="enable_visualizer_summary">Show the audio visualizer on the playback screen</string>
+	<string name="waveform_path_stroke_width">Waveform line thickness</string>
+	<string name="waveform_path_num">Waveform sampling points</string>
+	<string name="waveform_path_amp">Waveform amplitude</string>
 
 	<string name="tabs">Tab order</string>
 	<string name="customize_tab_order">Adjust the order and visibility of library tabs</string>

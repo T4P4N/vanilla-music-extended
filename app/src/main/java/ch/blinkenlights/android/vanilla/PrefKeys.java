@@ -62,6 +62,9 @@ public class PrefKeys {
 	public static final String USE_IDLE_TIMEOUT = "use_idle_timeout";
 	public static final String VISIBLE_CONTROLS = "visible_controls";
 	public static final String VISIBLE_EXTRA_INFO = "visible_extra_info";
+	public static final String WAVEFORM_SAMP_POINTS = "waveform_samp_points";
+	public static final String WAVEFORM_AMPLITUDE = "waveform_amplitude";
+	public static final String WAVEFORM_PATH_STROKE_WIDTH = "waveform_path_stroke_width";
 	public static final String ENABLE_TRACK_REPLAYGAIN = "enable_track_replaygain";
 	public static final String ENABLE_ALBUM_REPLAYGAIN = "enable_album_replaygain";
 	public static final String REPLAYGAIN_BUMP = "replaygain_bump";

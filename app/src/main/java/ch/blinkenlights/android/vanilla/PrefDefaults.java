@@ -65,6 +65,9 @@ public class PrefDefaults {
 	public static final boolean USE_IDLE_TIMEOUT = false;
 	public static final boolean VISIBLE_CONTROLS = true;
 	public static final boolean VISIBLE_EXTRA_INFO = false;
+	public static final int     WAVEFORM_SAMP_POINTS = 256;
+	public static final int     WAVEFORM_AMPLITUDE = 100;
+	public static final int     WAVEFORM_PATH_STROKE_WIDTH = 5;
 	public static final boolean ENABLE_TRACK_REPLAYGAIN = false;
 	public static final boolean ENABLE_ALBUM_REPLAYGAIN = false;
 	public static final int     REPLAYGAIN_BUMP = 75; // seek bar is 150 -> 75 == middle == 0

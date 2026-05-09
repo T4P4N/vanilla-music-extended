@@ -718,15 +718,19 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 				mVisualizerHelper.release();
 			}
 
+			float strokeWidth = settings.getInt(PrefKeys.WAVEFORM_PATH_STROKE_WIDTH, PrefDefaults.WAVEFORM_PATH_STROKE_WIDTH);
+			int num = settings.getInt(PrefKeys.WAVEFORM_SAMP_POINTS, PrefDefaults.WAVEFORM_SAMP_POINTS);
+			float amp = settings.getInt(PrefKeys.WAVEFORM_AMPLITUDE, PrefDefaults.WAVEFORM_AMPLITUDE) * 0.01f;
+
 			Paint paint = new Paint();
-			paint.setStrokeWidth(5f);
+			paint.setStrokeWidth(strokeWidth);
 			paint.setAntiAlias(true);
 			paint.setColor(Color.argb(128, 255, 255, 255));
 			paint.setStyle(Paint.Style.STROKE);
 
 			PlaybackService service = PlaybackService.get(this);
 			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
-			mVisualizerView.setup(mVisualizerHelper, new WfmAnalog(paint, 0, 2000, 256, 1f));
+			mVisualizerView.setup(mVisualizerHelper, new WfmAnalog(paint, 0, 2000, num, amp));
 			mVisualizerView.setFps(false);
 			mVisualizerView.setVisibility(View.VISIBLE);
 			mVisualizerView.bringToFront();

@@ -22,10 +22,97 @@ THE SOFTWARE.
 -->
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:vanilla="http://schemas.android.com/apk/res-auto"
 	android:persistent="true">
 	<CheckBoxPreference
 		android:key="enable_visualizer"
 		android:title="@string/enable_visualizer_title"
 		android:summary="@string/enable_visualizer_summary"
 		android:defaultValue="false" />
+
+	<ListPreference
+		android:key="visualizer_type"
+		android:title="@string/visualizer_type_title"
+		android:entries="@array/visualizer_type_entries"
+		android:entryValues="@array/visualizer_type_values"
+		android:defaultValue="0"
+		android:dependency="enable_visualizer" />
+
+	<ch.blinkenlights.android.vanilla.SeekBarPreference
+		android:key="waveform_path_stroke_width"
+		android:negativeButtonText="@null"
+		android:dialogLayout="@layout/seekbar_pref"
+		android:title="@string/waveform_path_stroke_width"
+		android:defaultValue="5"
+		vanilla:sbpMaxValue="20"
+		android:dependency="enable_visualizer" />
+
+	<PreferenceCategory
+		android:key="category_waveform"
+		android:title="@string/visualizer_category_waveform"
+		android:dependency="enable_visualizer">
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="waveform_samp_points"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/waveform_path_num"
+			android:defaultValue="256"
+			vanilla:sbpMaxValue="512" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="waveform_amplitude"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/waveform_path_amp"
+			android:defaultValue="100"
+			vanilla:sbpMaxValue="500"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="category_fft_bar"
+		android:title="@string/visualizer_category_fft_bar"
+		android:dependency="enable_visualizer">
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_cwave_num"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_bar_path_num"
+			android:defaultValue="64"
+			vanilla:sbpMaxValue="256" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_cwave_amp"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_bar_path_amp"
+			android:defaultValue="100"
+			vanilla:sbpMaxValue="500"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_cwave_radius"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_bar_path_gap"
+			android:defaultValue="40"
+			vanilla:sbpMaxValue="100"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+	</PreferenceCategory>
+
+	<ch.blinkenlights.android.vanilla.ColorPreference
+		android:key="waveform_color"
+		android:title="@string/waveform_color"
+		android:defaultValue="-2130706433"
+		android:dependency="enable_visualizer" />
+
+	<CheckBoxPreference
+		android:key="visualizer_enable_fill"
+		android:title="@string/visualizer_enable_fill"
+		android:defaultValue="false"
+		android:dependency="enable_visualizer" />
+
+	<ch.blinkenlights.android.vanilla.ColorPreference
+		android:key="visualizer_fill_color"
+		android:title="@string/visualizer_fill_color"
+		android:defaultValue="1073741823"
+		android:dependency="visualizer_enable_fill" />
+
 </PreferenceScreen>

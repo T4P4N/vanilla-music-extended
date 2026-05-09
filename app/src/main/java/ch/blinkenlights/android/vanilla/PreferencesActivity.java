@@ -236,12 +236,56 @@ public class PreferencesActivity extends PreferenceActivity
 		}
 	}
 
-	public static class VisualizerFragment extends PreferenceFragment {
+	public static class VisualizerFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+		private Preference mCategoryWaveform;
+		private Preference mCategoryFftBar;
+
 		@Override
 		public void onCreate(Bundle savedInstanceState)
 		{
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.preference_visualizer);
+			mCategoryWaveform = findPreference("category_waveform");
+			mCategoryFftBar = findPreference("category_fft_bar");
+		}
+
+		@Override
+		public void onResume() {
+			super.onResume();
+			getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+			updateVisibility();
+		}
+
+		@Override
+		public void onPause() {
+			super.onPause();
+			getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		}
+
+		@Override
+		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+			if (PrefKeys.VISUALIZER_TYPE.equals(key)) {
+				updateVisibility();
+			}
+		}
+
+		private void updateVisibility() {
+			SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
+			String type = prefs.getString(PrefKeys.VISUALIZER_TYPE, PrefDefaults.VISUALIZER_TYPE);
+			
+			boolean isFft = "1".equals(type);
+			if (isFft) {
+				getPreferenceScreen().removePreference(mCategoryWaveform);
+				getPreferenceScreen().addPreference(mCategoryFftBar);
+			} else {
+				getPreferenceScreen().addPreference(mCategoryWaveform);
+				getPreferenceScreen().removePreference(mCategoryFftBar);
+			}
+
+			Preference fillEnable = findPreference(PrefKeys.VISUALIZER_ENABLE_FILL);
+			Preference fillColor = findPreference(PrefKeys.VISUALIZER_FILL_COLOR);
+			if (fillEnable != null) fillEnable.setEnabled(isFft);
+			if (fillColor != null) fillColor.setEnabled(isFft);
 		}
 	}
 

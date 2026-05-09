@@ -45,6 +45,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
+
+import io.github.jeffshee.visualizer.views.VisualizerView;
+import io.github.jeffshee.visualizer.painters.waveform.WfmAnalog;
+import io.github.jeffshee.visualizer.utils.VisualizerHelper;
+
+
 
 /**
  * The primary playback screen with playback controls and large cover display.
@@ -102,6 +110,9 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 	private String mReplayGain;
 	private TextView mReplayGainView;
 	private MenuItem mFavorites;
+
+	private VisualizerView mVisualizerView;
+	private VisualizerHelper mVisualizerHelper;
 
 	@Override
 	public void onCreate(Bundle icicle)
@@ -163,6 +174,9 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 		mFormatView = (TextView)findViewById(R.id.format);
 		mReplayGainView = (TextView)findViewById(R.id.replaygain);
 
+		mVisualizerView = (VisualizerView)findViewById(R.id.visualizer);
+		setupVisualizer();
+
 		bindControlButtons();
 
 		setControlsVisible(settings.getBoolean(PrefKeys.VISIBLE_CONTROLS, PrefDefaults.VISIBLE_CONTROLS));
@@ -182,6 +196,18 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 
 		mCoverPressAction = Action.getAction(settings, PrefKeys.COVER_PRESS_ACTION, PrefDefaults.COVER_PRESS_ACTION);
 		mCoverLongPressAction = Action.getAction(settings, PrefKeys.COVER_LONGPRESS_ACTION, PrefDefaults.COVER_LONGPRESS_ACTION);
+
+		setupVisualizer();
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		if (mVisualizerHelper != null) {
+			mVisualizerHelper.release();
+			mVisualizerHelper = null;
+		}
+		super.onDestroy();
 	}
 
 	/**
@@ -238,6 +264,8 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 
 		if (mQueuePosView != null)
 			updateQueuePosition();
+
+		updateVisualizerState();
 	}
 
 	@Override
@@ -678,6 +706,47 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 		} else {
 			SharedPreferences settings = SharedPrefHelper.getSettings(this);
 			setExtraInfoVisible(settings.getBoolean(PrefKeys.VISIBLE_EXTRA_INFO, PrefDefaults.VISIBLE_EXTRA_INFO));
+		}
+	}
+
+	private void setupVisualizer() {
+		SharedPreferences settings = SharedPrefHelper.getSettings(this);
+		boolean enabled = settings.getBoolean(PrefKeys.ENABLE_VISUALIZER, PrefDefaults.ENABLE_VISUALIZER);
+
+		if (enabled && mVisualizerView != null && checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+			if (mVisualizerHelper != null) {
+				mVisualizerHelper.release();
+			}
+
+			Paint paint = new Paint();
+			paint.setStrokeWidth(5f);
+			paint.setAntiAlias(true);
+			paint.setColor(Color.argb(128, 255, 255, 255));
+			paint.setStyle(Paint.Style.STROKE);
+
+			PlaybackService service = PlaybackService.get(this);
+			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
+			mVisualizerView.setup(mVisualizerHelper, new WfmAnalog(paint, 0, 2000, 256, 1f));
+			mVisualizerView.setFps(false);
+			mVisualizerView.setVisibility(View.VISIBLE);
+			mVisualizerView.bringToFront();
+			updateVisualizerState();
+		} else if (mVisualizerView != null) {
+			mVisualizerView.setVisibility(View.GONE);
+			if (mVisualizerHelper != null) {
+				mVisualizerHelper.release();
+				mVisualizerHelper = null;
+			}
+		}
+	}
+
+	private void updateVisualizerState() {
+		if (mVisualizerView != null) {
+			boolean playing = (mState & PlaybackService.FLAG_PLAYING) != 0;
+			mVisualizerView.setAnim(playing);
+			if (playing) {
+				mVisualizerView.invalidate();
+			}
 		}
 	}
 

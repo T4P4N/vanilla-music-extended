@@ -283,6 +283,10 @@ THE SOFTWARE.
 	<string name="help">Help</string>
 	<string name="about">About</string>
 
+	<string name="visualizations">Visualizations</string>
+	<string name="enable_visualizer_title">Enable visualization</string>
+	<string name="enable_visualizer_summary">Show the audio visualizer on the playback screen</string>
+
 	<string name="tabs">Tab order</string>
 	<string name="customize_tab_order">Adjust the order and visibility of library tabs</string>
 	<string name="restore_default">Restore default</string>

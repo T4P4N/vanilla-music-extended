@@ -46,6 +46,7 @@ public class PrefDefaults {
 	public static final String DISPLAY_MODE = "2";
 	public static final boolean DOUBLE_TAP = false;
 	public static final boolean ENABLE_SHAKE = false;
+	public static final boolean ENABLE_VISUALIZER = false;
 	public static final boolean HEADSET_ONLY = false;
 	public static final boolean HEADSET_PAUSE = true;
 	public static final int     IDLE_TIMEOUT = 3600;

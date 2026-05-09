@@ -23,11 +23,19 @@ THE SOFTWARE.
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:vanilla="http://schemas.android.com/apk/res-auto" >
 
-  <ch.blinkenlights.android.vanilla.CoverView
-      android:id="@+id/cover_view"
-      android:layout_marginBottom="@dimen/full_playback_controls_height"
-      android:layout_height="fill_parent"
-      android:layout_width="fill_parent" />
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="@dimen/full_playback_controls_height">
+      <ch.blinkenlights.android.vanilla.CoverView
+          android:id="@+id/cover_view"
+          android:layout_height="fill_parent"
+          android:layout_width="fill_parent" />
+      <io.github.jeffshee.visualizer.views.VisualizerView
+          android:id="@+id/visualizer"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+  </FrameLayout>
 
 	<ch.blinkenlights.android.vanilla.SlidingView
 		android:id="@+id/sliding_view"

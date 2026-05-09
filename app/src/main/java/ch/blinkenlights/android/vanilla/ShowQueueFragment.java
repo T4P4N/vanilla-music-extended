@@ -96,7 +96,8 @@ public class ShowQueueFragment extends Fragment
 	private final static int CTX_MENU_ADD_TO_PLAYLIST = 106;
 	private final static int CTX_MENU_MOVE_TO_TOP     = 107;
 	private final static int CTX_MENU_MOVE_TO_BOTTOM  = 108;
-	private final static int CTX_MENU_DEQUEUE_REST    = 109;
+	private final static int CTX_MENU_DEQUEUE_ALL_FROM_BOTTOM  = 109;
+	private final static int CTX_MENU_DEQUEUE_ALL_FROM_TOP  = 110;
 
 	/**
 	 * Called on long-click on a adapeter row
@@ -127,7 +128,8 @@ public class ShowQueueFragment extends Fragment
 		fm.addSpacer(0);
 		fm.add(CTX_MENU_SHOW_DETAILS, 0, R.drawable.menu_details, R.string.details).setIntent(intent);
 		fm.add(CTX_MENU_REMOVE, 90, R.drawable.menu_remove, R.string.remove).setIntent(intent);
-		fm.add(CTX_MENU_DEQUEUE_REST, 90, R.drawable.menu_remove, R.string.dequeue_rest).setIntent(intent);
+		fm.add(CTX_MENU_DEQUEUE_ALL_FROM_TOP, 90, R.drawable.menu_remove, R.string.dequeue_all_from_top).setIntent(intent);
+		fm.add(CTX_MENU_DEQUEUE_ALL_FROM_BOTTOM, 90, R.drawable.menu_remove, R.string.dequeue_rest).setIntent(intent);
 
 
 		fm.show(view, x, y);
@@ -176,8 +178,11 @@ public class ShowQueueFragment extends Fragment
 			case CTX_MENU_MOVE_TO_BOTTOM:
 				service.moveSongPosition(pos, service.getTimelineLength() - 1);
 				break;
-			case CTX_MENU_DEQUEUE_REST:
+			case CTX_MENU_DEQUEUE_ALL_FROM_BOTTOM:
 				service.removeSongsAfter(pos);
+				break;
+			case CTX_MENU_DEQUEUE_ALL_FROM_TOP:
+				service.removeSongsBefore(pos);
 				break;
 			default:
 				throw new IllegalArgumentException("Unhandled menu id received!");

@@ -1056,6 +1056,24 @@ public final class SongTimeline {
 		changed();
 	}
 
+	/**
+	 * Removes all songs before the given position in one shot.
+	 * @param pos first index to keep; everything before is dropped
+	 */
+	public void removeSongsBefore(int pos) {
+		synchronized (this) {
+			if (pos <= 0 || pos >= mSongs.size())
+				return;
+			saveActiveSongs();
+			mSongs.subList(0, pos).clear();
+			mCurrentPos -= pos;
+			if (mCurrentPos < 0)
+				mCurrentPos = 0;
+			broadcastChangedSongs();
+		}
+		changed();
+	}
+
 
 	/**
 	 * Broadcasts that the timeline state has changed.

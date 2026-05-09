@@ -727,6 +727,7 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 			PlaybackService service = PlaybackService.get(this);
 			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
 			mVisualizerView.setup(mVisualizerHelper, new WfmAnalog(paint, 0, 2000, 256, 1f));
+			mVisualizerView.setFps(false);
 			mVisualizerView.setVisibility(View.VISIBLE);
 			mVisualizerView.bringToFront();
 			updateVisualizerState();

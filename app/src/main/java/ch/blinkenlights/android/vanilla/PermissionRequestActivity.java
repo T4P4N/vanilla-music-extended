@@ -154,10 +154,12 @@ public class PermissionRequestActivity extends Activity {
 	}
 
 	private static String[] getOptionalPermissions() {
+		ArrayList<String> perms = new ArrayList<>();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-			return new String[] { Manifest.permission.POST_NOTIFICATIONS };
+			perms.add(Manifest.permission.POST_NOTIFICATIONS);
 		}
-		return new String[]{};
+		perms.add(Manifest.permission.RECORD_AUDIO);
+		return perms.toArray(new String[0]);
 	}
 
 }

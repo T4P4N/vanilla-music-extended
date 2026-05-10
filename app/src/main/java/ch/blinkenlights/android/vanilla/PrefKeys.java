@@ -69,6 +69,7 @@ public class PrefKeys {
 	public static final String VISUALIZER_TYPE = "visualizer_type";
 	public static final String VISUALIZER_FILL_COLOR = "visualizer_fill_color";
 	public static final String VISUALIZER_ENABLE_FILL = "visualizer_enable_fill";
+	public static final String VISUALIZER_SHOW_FPS = "visualizer_show_fps";
 	public static final String FFT_CWAVE_NUM = "fft_cwave_num";
 	public static final String FFT_CWAVE_AMP = "fft_cwave_amp";
 	public static final String FFT_CWAVE_RADIUS = "fft_cwave_radius";

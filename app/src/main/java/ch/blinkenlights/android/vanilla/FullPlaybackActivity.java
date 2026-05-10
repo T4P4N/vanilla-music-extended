@@ -198,8 +198,22 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 
 		mCoverPressAction = Action.getAction(settings, PrefKeys.COVER_PRESS_ACTION, PrefDefaults.COVER_PRESS_ACTION);
 		mCoverLongPressAction = Action.getAction(settings, PrefKeys.COVER_LONGPRESS_ACTION, PrefDefaults.COVER_LONGPRESS_ACTION);
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
 		setupVisualizer();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
 	}
 
 	@Override
@@ -712,7 +726,7 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 	}
 
 	private void setupVisualizer() {
-		SharedPreferences settings = SharedPrefHelper.getSettings(this);
+		SharedPreferences settings = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
 		boolean enabled = settings.getBoolean(PrefKeys.ENABLE_VISUALIZER, PrefDefaults.ENABLE_VISUALIZER);
 
 		if (enabled && mVisualizerView != null && checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
@@ -756,7 +770,10 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 			PlaybackService service = PlaybackService.get(this);
 			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
 			mVisualizerView.setup(mVisualizerHelper, painter);
-			mVisualizerView.setFps(false);
+			boolean showFps = settings.getBoolean(PrefKeys.VISUALIZER_SHOW_FPS, PrefDefaults.VISUALIZER_SHOW_FPS);
+			mVisualizerView.setFps(showFps);
+			mVisualizerView.setAnim(true);
+			
 			mVisualizerView.setVisibility(View.VISIBLE);
 			mVisualizerView.bringToFront();
 			updateVisualizerState();

@@ -72,6 +72,7 @@ public class PrefDefaults {
 	public static final String  VISUALIZER_TYPE = "0";
 	public static final int     VISUALIZER_FILL_COLOR = 0x40FFFFFF;
 	public static final boolean VISUALIZER_ENABLE_FILL = false;
+	public static final boolean VISUALIZER_SHOW_FPS = false;
 	public static final int     FFT_CWAVE_NUM = 64;
 	public static final int     FFT_CWAVE_AMP = 100;
 	public static final int     FFT_CWAVE_RADIUS = 40;

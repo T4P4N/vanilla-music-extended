@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.preference.CheckBoxPreference;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -274,18 +275,31 @@ public class PreferencesActivity extends PreferenceActivity
 			String type = prefs.getString(PrefKeys.VISUALIZER_TYPE, PrefDefaults.VISUALIZER_TYPE);
 			
 			boolean isFft = "1".equals(type);
+			PreferenceScreen screen = getPreferenceScreen();
+			
 			if (isFft) {
-				getPreferenceScreen().removePreference(mCategoryWaveform);
-				getPreferenceScreen().addPreference(mCategoryFftBar);
+				screen.removePreference(mCategoryWaveform);
+				screen.addPreference(mCategoryFftBar);
 			} else {
-				getPreferenceScreen().addPreference(mCategoryWaveform);
-				getPreferenceScreen().removePreference(mCategoryFftBar);
+				screen.addPreference(mCategoryWaveform);
+				screen.removePreference(mCategoryFftBar);
+			}
+
+			Preference colorPref = findPreference(PrefKeys.WAVEFORM_COLOR);
+			if (colorPref != null) {
+				colorPref.setTitle(isFft ? R.string.visualizer_color_fft : R.string.visualizer_color_waveform);
 			}
 
 			Preference fillEnable = findPreference(PrefKeys.VISUALIZER_ENABLE_FILL);
 			Preference fillColor = findPreference(PrefKeys.VISUALIZER_FILL_COLOR);
-			if (fillEnable != null) fillEnable.setEnabled(isFft);
-			if (fillColor != null) fillColor.setEnabled(isFft);
+			
+			if (isFft) {
+				if (fillEnable != null) screen.addPreference(fillEnable);
+				if (fillColor != null) screen.addPreference(fillColor);
+			} else {
+				if (fillEnable != null) screen.removePreference(fillEnable);
+				if (fillColor != null) screen.removePreference(fillColor);
+			}
 		}
 	}
 

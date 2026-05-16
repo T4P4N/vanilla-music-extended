@@ -291,6 +291,7 @@ THE SOFTWARE.
 	<string name="visualizer_type_fft_bar">FFT Circle Wave</string>
 	<string name="visualizer_type_fft_wave">FFT Spectrum Line</string>
 	<string name="visualizer_type_fft_cline">FFT Circle Line</string>
+	<string name="visualizer_type_beat_circle">BeatCircle</string>
 	<string name="waveform_path_stroke_width">Waveform stroke width</string>
 	<string name="waveform_path_num">Waveform sampling points</string>
 	<string name="waveform_path_amp">Waveform amplitude</string>
@@ -312,6 +313,15 @@ THE SOFTWARE.
 	<string name="visualizer_category_fft_bar">FFT Circle Wave settings</string>
 	<string name="visualizer_category_fft_wave">FFT Spectrum Line settings</string>
 	<string name="visualizer_category_fft_cline">FFT Circle Line settings</string>
+	<string name="visualizer_category_beat_circle">BeatCircle settings</string>
+	<string name="beat_circle_path_radius">BeatCircle radius</string>
+	<string name="beat_circle_path_wave_amp">BeatCircle wave amplitude</string>
+	<string name="beat_circle_path_beat_amp">BeatCircle beat amplitude</string>
+	<string name="beat_circle_color_1">BeatCircle gradient 1 color 1</string>
+	<string name="beat_circle_color_2">BeatCircle gradient 1 color 2</string>
+	<string name="beat_circle_color_3">BeatCircle gradient 2 color 1</string>
+	<string name="beat_circle_color_4">BeatCircle gradient 2 color 2</string>
+	<string name="beat_circle_gradient_2_custom">Use custom colors for second gradient</string>
 	<string name="fft_wave_path_num">FFT Spectrum Line count</string>
 	<string name="fft_wave_path_amp">FFT Spectrum Line amplitude</string>
 	<string name="fft_cline_path_num">FFT Circle Line count</string>

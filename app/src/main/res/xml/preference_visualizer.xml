@@ -151,6 +151,58 @@ THE SOFTWARE.
 			vanilla:sbpSummaryValueMultiplication="0.01" />
 	</PreferenceCategory>
 
+	<PreferenceCategory
+		android:key="category_beat_circle"
+		android:title="@string/visualizer_category_beat_circle"
+		android:dependency="enable_visualizer">
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="beat_circle_radius"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/beat_circle_path_radius"
+			android:defaultValue="30"
+			vanilla:sbpMaxValue="100"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="beat_circle_wave_amp"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/beat_circle_path_wave_amp"
+			android:defaultValue="65"
+			vanilla:sbpMaxValue="500"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="beat_circle_beat_amp"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/beat_circle_path_beat_amp"
+			android:defaultValue="100"
+			vanilla:sbpMaxValue="500"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+		<ch.blinkenlights.android.vanilla.ColorPreference
+			android:key="beat_circle_color_1"
+			android:title="@string/beat_circle_color_1"
+			android:defaultValue="-6736897" />
+		<ch.blinkenlights.android.vanilla.ColorPreference
+			android:key="beat_circle_color_2"
+			android:title="@string/beat_circle_color_2"
+			android:defaultValue="-65409" />
+		<CheckBoxPreference
+			android:key="beat_circle_gradient_2_custom"
+			android:title="@string/beat_circle_gradient_2_custom"
+			android:defaultValue="false" />
+		<ch.blinkenlights.android.vanilla.ColorPreference
+			android:key="beat_circle_color_3"
+			android:title="@string/beat_circle_color_3"
+			android:defaultValue="-65536"
+			android:dependency="beat_circle_gradient_2_custom" />
+		<ch.blinkenlights.android.vanilla.ColorPreference
+			android:key="beat_circle_color_4"
+			android:title="@string/beat_circle_color_4"
+			android:defaultValue="-256"
+			android:dependency="beat_circle_gradient_2_custom" />
+	</PreferenceCategory>
+
 	<ch.blinkenlights.android.vanilla.ColorPreference
 		android:key="waveform_color"
 		android:title="@string/visualizer_color_waveform"

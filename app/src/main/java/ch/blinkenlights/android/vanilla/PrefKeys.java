@@ -78,6 +78,14 @@ public class PrefKeys {
 	public static final String FFT_CLINE_NUM = "fft_cline_num";
 	public static final String FFT_CLINE_AMP = "fft_cline_amp";
 	public static final String FFT_CLINE_RADIUS = "fft_cline_radius";
+	public static final String BEAT_CIRCLE_RADIUS = "beat_circle_radius";
+	public static final String BEAT_CIRCLE_WAVE_AMP = "beat_circle_wave_amp";
+	public static final String BEAT_CIRCLE_BEAT_AMP = "beat_circle_beat_amp";
+	public static final String BEAT_CIRCLE_COLOR_1 = "beat_circle_color_1";
+	public static final String BEAT_CIRCLE_COLOR_2 = "beat_circle_color_2";
+	public static final String BEAT_CIRCLE_COLOR_3 = "beat_circle_color_3";
+	public static final String BEAT_CIRCLE_COLOR_4 = "beat_circle_color_4";
+	public static final String BEAT_CIRCLE_GRADIENT_2_CUSTOM = "beat_circle_gradient_2_custom";
 	public static final String ENABLE_TRACK_REPLAYGAIN = "enable_track_replaygain";
 	public static final String ENABLE_ALBUM_REPLAYGAIN = "enable_album_replaygain";
 	public static final String REPLAYGAIN_BUMP = "replaygain_bump";

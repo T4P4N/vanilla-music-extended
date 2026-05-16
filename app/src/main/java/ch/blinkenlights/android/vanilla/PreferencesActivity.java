@@ -242,6 +242,10 @@ public class PreferencesActivity extends PreferenceActivity
 		private Preference mCategoryFftBar;
 		private Preference mCategoryFftWave;
 		private Preference mCategoryFftCLine;
+		private Preference mCategoryBeatCircle;
+		private Preference mColorPref;
+		private Preference mFillEnable;
+		private Preference mFillColor;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState)
@@ -252,6 +256,10 @@ public class PreferencesActivity extends PreferenceActivity
 			mCategoryFftBar = findPreference("category_fft_bar");
 			mCategoryFftWave = findPreference("category_fft_wave");
 			mCategoryFftCLine = findPreference("category_fft_cline");
+			mCategoryBeatCircle = findPreference("category_beat_circle");
+			mColorPref = findPreference(PrefKeys.WAVEFORM_COLOR);
+			mFillEnable = findPreference(PrefKeys.VISUALIZER_ENABLE_FILL);
+			mFillColor = findPreference(PrefKeys.VISUALIZER_FILL_COLOR);
 		}
 
 		@Override
@@ -283,9 +291,14 @@ public class PreferencesActivity extends PreferenceActivity
 			screen.removePreference(mCategoryFftBar);
 			screen.removePreference(mCategoryFftWave);
 			screen.removePreference(mCategoryFftCLine);
+			screen.removePreference(mCategoryBeatCircle);
+			screen.removePreference(mColorPref);
+			screen.removePreference(mFillEnable);
+			screen.removePreference(mFillColor);
 
 			int resId = R.string.visualizer_color_waveform;
 			boolean isFft = false;
+			boolean isBeatCircle = false;
 
 			if ("0".equals(type)) {
 				screen.addPreference(mCategoryWaveform);
@@ -302,44 +315,41 @@ public class PreferencesActivity extends PreferenceActivity
 				screen.addPreference(mCategoryFftCLine);
 				resId = R.string.visualizer_color_fft_cline;
 				isFft = true;
+			} else if ("4".equals(type)) {
+				screen.addPreference(mCategoryBeatCircle);
+				isBeatCircle = true;
 			}
 
-			Preference colorPref = findPreference(PrefKeys.WAVEFORM_COLOR);
-			if (colorPref != null) {
-				colorPref.setTitle(resId);
+			if (!isBeatCircle && mColorPref != null) {
+				screen.addPreference(mColorPref);
+				mColorPref.setTitle(resId);
 			}
 
-			Preference fillEnable = findPreference(PrefKeys.VISUALIZER_ENABLE_FILL);
-			Preference fillColor = findPreference(PrefKeys.VISUALIZER_FILL_COLOR);
-			
 			if (isFft) {
-				if (fillEnable != null) {
-					screen.addPreference(fillEnable);
+				if (mFillEnable != null) {
+					screen.addPreference(mFillEnable);
 					if ("1".equals(type)) {
-						fillEnable.setTitle(R.string.visualizer_enable_fill_fft);
+						mFillEnable.setTitle(R.string.visualizer_enable_fill_fft);
 					} else if ("2".equals(type)) {
-						fillEnable.setTitle(R.string.visualizer_enable_fill_fft_wave);
+						mFillEnable.setTitle(R.string.visualizer_enable_fill_fft_wave);
 					} else if ("3".equals(type)) {
-						fillEnable.setTitle(R.string.visualizer_enable_fill_fft_cline);
+						mFillEnable.setTitle(R.string.visualizer_enable_fill_fft_cline);
 					} else {
-						fillEnable.setTitle(R.string.visualizer_enable_fill);
+						mFillEnable.setTitle(R.string.visualizer_enable_fill);
 					}
 				}
-				if (fillColor != null) {
-					screen.addPreference(fillColor);
+				if (mFillColor != null) {
+					screen.addPreference(mFillColor);
 					if ("1".equals(type)) {
-						fillColor.setTitle(R.string.visualizer_fill_color_fft);
+						mFillColor.setTitle(R.string.visualizer_fill_color_fft);
 					} else if ("2".equals(type)) {
-						fillColor.setTitle(R.string.visualizer_color_fft_wave);
+						mFillColor.setTitle(R.string.visualizer_color_fft_wave);
 					} else if ("3".equals(type)) {
-						fillColor.setTitle(R.string.visualizer_color_fft_cline);
+						mFillColor.setTitle(R.string.visualizer_color_fft_cline);
 					} else {
-						fillColor.setTitle(R.string.visualizer_color_generic);
+						mFillColor.setTitle(R.string.visualizer_color_generic);
 					}
 				}
-			} else {
-				if (fillEnable != null) screen.removePreference(fillEnable);
-				if (fillColor != null) screen.removePreference(fillColor);
 			}
 		}
 	}

@@ -73,6 +73,11 @@ public class PrefKeys {
 	public static final String FFT_CWAVE_NUM = "fft_cwave_num";
 	public static final String FFT_CWAVE_AMP = "fft_cwave_amp";
 	public static final String FFT_CWAVE_RADIUS = "fft_cwave_radius";
+	public static final String FFT_WAVE_NUM = "fft_wave_num";
+	public static final String FFT_WAVE_AMP = "fft_wave_amp";
+	public static final String FFT_CLINE_NUM = "fft_cline_num";
+	public static final String FFT_CLINE_AMP = "fft_cline_amp";
+	public static final String FFT_CLINE_RADIUS = "fft_cline_radius";
 	public static final String ENABLE_TRACK_REPLAYGAIN = "enable_track_replaygain";
 	public static final String ENABLE_ALBUM_REPLAYGAIN = "enable_album_replaygain";
 	public static final String REPLAYGAIN_BUMP = "replaygain_bump";

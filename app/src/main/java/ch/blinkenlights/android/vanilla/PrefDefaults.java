@@ -76,6 +76,11 @@ public class PrefDefaults {
 	public static final int     FFT_CWAVE_NUM = 64;
 	public static final int     FFT_CWAVE_AMP = 100;
 	public static final int     FFT_CWAVE_RADIUS = 40;
+	public static final int     FFT_WAVE_NUM = 128;
+	public static final int     FFT_WAVE_AMP = 100;
+	public static final int     FFT_CLINE_NUM = 64;
+	public static final int     FFT_CLINE_AMP = 100;
+	public static final int     FFT_CLINE_RADIUS = 40;
 	public static final boolean ENABLE_TRACK_REPLAYGAIN = false;
 	public static final boolean ENABLE_ALBUM_REPLAYGAIN = false;
 	public static final int     REPLAYGAIN_BUMP = 75; // seek bar is 150 -> 75 == middle == 0

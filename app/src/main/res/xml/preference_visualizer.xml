@@ -101,6 +101,56 @@ THE SOFTWARE.
 			vanilla:sbpSummaryValueMultiplication="0.01" />
 	</PreferenceCategory>
 
+	<PreferenceCategory
+		android:key="category_fft_wave"
+		android:title="@string/visualizer_category_fft_wave"
+		android:dependency="enable_visualizer">
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_wave_num"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_wave_path_num"
+			android:defaultValue="128"
+			vanilla:sbpMaxValue="512" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_wave_amp"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_wave_path_amp"
+			android:defaultValue="100"
+			vanilla:sbpMaxValue="500"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="category_fft_cline"
+		android:title="@string/visualizer_category_fft_cline"
+		android:dependency="enable_visualizer">
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_cline_num"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_cline_path_num"
+			android:defaultValue="64"
+			vanilla:sbpMaxValue="256" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_cline_amp"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_cline_path_amp"
+			android:defaultValue="100"
+			vanilla:sbpMaxValue="500"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="fft_cline_radius"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/fft_cline_path_radius"
+			android:defaultValue="40"
+			vanilla:sbpMaxValue="100"
+			vanilla:sbpSummaryValueMultiplication="0.01" />
+	</PreferenceCategory>
+
 	<ch.blinkenlights.android.vanilla.ColorPreference
 		android:key="waveform_color"
 		android:title="@string/visualizer_color_waveform"

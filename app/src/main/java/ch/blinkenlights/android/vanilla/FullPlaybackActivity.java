@@ -50,6 +50,8 @@ import android.graphics.Paint;
 import io.github.jeffshee.visualizer.views.VisualizerView;
 import io.github.jeffshee.visualizer.painters.Painter;
 import io.github.jeffshee.visualizer.painters.fft.FftCWave;
+import io.github.jeffshee.visualizer.painters.fft.FftWave;
+import io.github.jeffshee.visualizer.painters.fft.FftCLine;
 import io.github.jeffshee.visualizer.painters.waveform.WfmAnalog;
 import io.github.jeffshee.visualizer.painters.modifier.Compose;
 import io.github.jeffshee.visualizer.utils.VisualizerHelper;
@@ -757,6 +759,32 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 					fillPaint.setColor(fillColor);
 					fillPaint.setStyle(Paint.Style.FILL);
 					Painter fillPainter = new FftCWave(fillPaint, 0, 2000, num, "li", "a", false, false, radius, amp);
+					painter = new Compose(fillPainter, painter);
+				}
+			} else if ("2".equals(type)) {
+				int num = settings.getInt(PrefKeys.FFT_WAVE_NUM, PrefDefaults.FFT_WAVE_NUM);
+				float amp = settings.getInt(PrefKeys.FFT_WAVE_AMP, PrefDefaults.FFT_WAVE_AMP) * 0.01f;
+				painter = new FftWave(paint, 0, 2000, num, "li", "a", false, false, amp);
+
+				if (fillEnabled) {
+					Paint fillPaint = new Paint(paint);
+					fillPaint.setColor(fillColor);
+					fillPaint.setStyle(Paint.Style.FILL);
+					Painter fillPainter = new FftWave(fillPaint, 0, 2000, num, "li", "a", false, false, amp);
+					painter = new Compose(fillPainter, painter);
+				}
+			} else if ("3".equals(type)) {
+				int num = settings.getInt(PrefKeys.FFT_CLINE_NUM, PrefDefaults.FFT_CLINE_NUM);
+				float amp = settings.getInt(PrefKeys.FFT_CLINE_AMP, PrefDefaults.FFT_CLINE_AMP) * 0.01f;
+				float radius = settings.getInt(PrefKeys.FFT_CLINE_RADIUS, PrefDefaults.FFT_CLINE_RADIUS) * 0.01f;
+				paint.setStrokeWidth(2f);
+				painter = new FftCLine(paint, 0, 2000, num, "li", "a", false, false, radius, amp);
+
+				if (fillEnabled) {
+					Paint fillPaint = new Paint(paint);
+					fillPaint.setColor(fillColor);
+					fillPaint.setStyle(Paint.Style.FILL);
+					Painter fillPainter = new FftCLine(fillPaint, 0, 2000, num, "li", "a", false, false, radius, amp);
 					painter = new Compose(fillPainter, painter);
 				}
 			} else {

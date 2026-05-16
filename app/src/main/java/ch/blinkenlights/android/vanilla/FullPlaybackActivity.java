@@ -50,9 +50,18 @@ import android.graphics.Paint;
 import io.github.jeffshee.visualizer.views.VisualizerView;
 import io.github.jeffshee.visualizer.painters.Painter;
 import io.github.jeffshee.visualizer.painters.fft.FftCWave;
+import io.github.jeffshee.visualizer.painters.fft.FftWave;
+import io.github.jeffshee.visualizer.painters.fft.FftCLine;
 import io.github.jeffshee.visualizer.painters.waveform.WfmAnalog;
 import io.github.jeffshee.visualizer.painters.modifier.Compose;
+import io.github.jeffshee.visualizer.painters.modifier.Beat;
+import io.github.jeffshee.visualizer.painters.modifier.Blend;
+import io.github.jeffshee.visualizer.painters.modifier.Rotate;
+import io.github.jeffshee.visualizer.painters.misc.Gradient;
+import io.github.jeffshee.visualizer.painters.misc.Icon;
 import io.github.jeffshee.visualizer.utils.VisualizerHelper;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 
 
 
@@ -198,8 +207,22 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 
 		mCoverPressAction = Action.getAction(settings, PrefKeys.COVER_PRESS_ACTION, PrefDefaults.COVER_PRESS_ACTION);
 		mCoverLongPressAction = Action.getAction(settings, PrefKeys.COVER_LONGPRESS_ACTION, PrefDefaults.COVER_LONGPRESS_ACTION);
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
 		setupVisualizer();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
 	}
 
 	@Override
@@ -294,6 +317,13 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 		if (mExtraInfoVisible) {
 			mHandler.sendEmptyMessage(MSG_LOAD_EXTRA_INFO);
 		}
+
+		SharedPreferences settings = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
+		String type = settings.getString(PrefKeys.VISUALIZER_TYPE, PrefDefaults.VISUALIZER_TYPE);
+		if ("4".equals(type)) {
+			setupVisualizer();
+		}
+
 		super.onSongChange(song);
 	}
 
@@ -712,7 +742,7 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 	}
 
 	private void setupVisualizer() {
-		SharedPreferences settings = SharedPrefHelper.getSettings(this);
+		SharedPreferences settings = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
 		boolean enabled = settings.getBoolean(PrefKeys.ENABLE_VISUALIZER, PrefDefaults.ENABLE_VISUALIZER);
 
 		if (enabled && mVisualizerView != null && checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
@@ -745,6 +775,71 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 					Painter fillPainter = new FftCWave(fillPaint, 0, 2000, num, "li", "a", false, false, radius, amp);
 					painter = new Compose(fillPainter, painter);
 				}
+			} else if ("2".equals(type)) {
+				int num = settings.getInt(PrefKeys.FFT_WAVE_NUM, PrefDefaults.FFT_WAVE_NUM);
+				float amp = settings.getInt(PrefKeys.FFT_WAVE_AMP, PrefDefaults.FFT_WAVE_AMP) * 0.01f;
+				painter = new FftWave(paint, 0, 2000, num, "li", "a", false, false, amp);
+
+				if (fillEnabled) {
+					Paint fillPaint = new Paint(paint);
+					fillPaint.setColor(fillColor);
+					fillPaint.setStyle(Paint.Style.FILL);
+					Painter fillPainter = new FftWave(fillPaint, 0, 2000, num, "li", "a", false, false, amp);
+					painter = new Compose(fillPainter, painter);
+				}
+			} else if ("3".equals(type)) {
+				int num = settings.getInt(PrefKeys.FFT_CLINE_NUM, PrefDefaults.FFT_CLINE_NUM);
+				float amp = settings.getInt(PrefKeys.FFT_CLINE_AMP, PrefDefaults.FFT_CLINE_AMP) * 0.01f;
+				float radius = settings.getInt(PrefKeys.FFT_CLINE_RADIUS, PrefDefaults.FFT_CLINE_RADIUS) * 0.01f;
+				paint.setStrokeWidth(2f);
+				painter = new FftCLine(paint, 0, 2000, num, "li", "a", false, false, radius, amp);
+
+				if (fillEnabled) {
+					Paint fillPaint = new Paint(paint);
+					fillPaint.setColor(fillColor);
+					fillPaint.setStyle(Paint.Style.FILL);
+					Painter fillPainter = new FftCLine(fillPaint, 0, 2000, num, "li", "a", false, false, radius, amp);
+					painter = new Compose(fillPainter, painter);
+				}
+			} else if ("4".equals(type)) {
+				float radiusR = settings.getInt(PrefKeys.BEAT_CIRCLE_RADIUS, PrefDefaults.BEAT_CIRCLE_RADIUS) * 0.01f;
+				float waveAmp = settings.getInt(PrefKeys.BEAT_CIRCLE_WAVE_AMP, PrefDefaults.BEAT_CIRCLE_WAVE_AMP) * 0.01f;
+				float beatAmp = settings.getInt(PrefKeys.BEAT_CIRCLE_BEAT_AMP, PrefDefaults.BEAT_CIRCLE_BEAT_AMP) * 0.01f;
+				int color1 = settings.getInt(PrefKeys.BEAT_CIRCLE_COLOR_1, PrefDefaults.BEAT_CIRCLE_COLOR_1);
+				int color2 = settings.getInt(PrefKeys.BEAT_CIRCLE_COLOR_2, PrefDefaults.BEAT_CIRCLE_COLOR_2);
+				int color3 = settings.getInt(PrefKeys.BEAT_CIRCLE_COLOR_3, PrefDefaults.BEAT_CIRCLE_COLOR_3);
+				int color4 = settings.getInt(PrefKeys.BEAT_CIRCLE_COLOR_4, PrefDefaults.BEAT_CIRCLE_COLOR_4);
+				boolean custom2 = settings.getBoolean(PrefKeys.BEAT_CIRCLE_GRADIENT_2_CUSTOM, PrefDefaults.BEAT_CIRCLE_GRADIENT_2_CUSTOM);
+
+				Paint paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
+				paint1.setColor(color);
+				paint1.setStyle(Paint.Style.STROKE);
+				paint1.setStrokeWidth(4f);
+				Painter fft1 = new FftCWave(paint1, 200, 1000, 128, "sp", "a", true, true, radiusR, waveAmp);
+
+				Paint paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+				paint2.setColor(color);
+				Painter fft2 = new FftCWave(paint2, 200, 1200, 128, "sp", "a", true, true, radiusR, waveAmp * 0.92f);
+
+				Painter blend1 = new Blend(
+						new Rotate(new Painter[]{fft1}, 0.5f, 0.5f, 0f, 90f),
+						new Gradient(Gradient.Companion.getSWEEP(), color1, color2, false, new Paint())
+				);
+
+				Painter blend2 = new Blend(
+						new Rotate(new Painter[]{fft2}, 0.5f, 0.5f, 0f, 90f),
+						new Gradient(Gradient.Companion.getSWEEP(), color3, color4, !custom2, new Paint())
+				);
+
+				Song song = PlaybackService.get(this).getSong(0);
+				Bitmap cover = song == null ? null : song.getLargeCover(this);
+				if (cover == null) {
+					cover = CoverBitmap.generateDefaultCover(this, mVisualizerView.getWidth(), mVisualizerView.getHeight());
+				}
+				Bitmap circledCover = Icon.Companion.getCircledBitmap(cover);
+				Painter icon = new Icon(circledCover, radiusR, new Paint(Paint.ANTI_ALIAS_FLAG));
+
+				painter = new Beat(new Painter[]{new Compose(blend1, blend2, icon)}, 60, 800, 0.5f, 0.5f, 1f, beatAmp, 200f);
 			} else {
 				float strokeWidth = settings.getInt(PrefKeys.WAVEFORM_PATH_STROKE_WIDTH, PrefDefaults.WAVEFORM_PATH_STROKE_WIDTH);
 				int num = settings.getInt(PrefKeys.WAVEFORM_SAMP_POINTS, PrefDefaults.WAVEFORM_SAMP_POINTS);
@@ -756,7 +851,10 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 			PlaybackService service = PlaybackService.get(this);
 			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
 			mVisualizerView.setup(mVisualizerHelper, painter);
-			mVisualizerView.setFps(false);
+			boolean showFps = settings.getBoolean(PrefKeys.VISUALIZER_SHOW_FPS, PrefDefaults.VISUALIZER_SHOW_FPS);
+			mVisualizerView.setFps(showFps);
+			mVisualizerView.setAnim(true);
+			
 			mVisualizerView.setVisibility(View.VISIBLE);
 			mVisualizerView.bringToFront();
 			updateVisualizerState();

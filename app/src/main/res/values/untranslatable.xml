@@ -161,10 +161,16 @@ THE SOFTWARE.
 	<string-array name="visualizer_type_entries">
 		<item>@string/visualizer_type_waveform</item>
 		<item>@string/visualizer_type_fft_bar</item>
+		<item>@string/visualizer_type_fft_wave</item>
+		<item>@string/visualizer_type_fft_cline</item>
+		<item>@string/visualizer_type_beat_circle</item>
 	</string-array>
 	<string-array name="visualizer_type_values" translatable="false">
 		<item>0</item>
 		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
 	</string-array>
 
 

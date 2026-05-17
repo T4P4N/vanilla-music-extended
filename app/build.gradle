@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.github.jeffshee:NextGenVisualizer:829e239460'
     implementation 'com.github.skydoves:colorpickerview:2.4.0'
     implementation 'junit:junit:4.12'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.3.21"
     implementation 'org.apache.commons:commons-math3:3.6.1'
     compileOnly 'androidx.annotation:annotation:1.0.0'
 }

@@ -850,6 +850,10 @@ public class FullPlaybackActivity extends SlidingPlaybackActivity
 
 			PlaybackService service = PlaybackService.get(this);
 			mVisualizerHelper = new VisualizerHelper(service.getAudioSession());
+			boolean exp = settings.getBoolean(PrefKeys.VISUALIZER_ENABLE_EXPONENTIAL_DECAY, PrefDefaults.VISUALIZER_ENABLE_EXPONENTIAL_DECAY);
+			double decay = settings.getInt(PrefKeys.VISUALIZER_GRAVITY, PrefDefaults.VISUALIZER_GRAVITY) * 0.01;
+			boolean spatial = settings.getBoolean(PrefKeys.VISUALIZER_ENABLE_SPATIAL_FILTER, PrefDefaults.VISUALIZER_ENABLE_SPATIAL_FILTER);
+			VisualizerConfig.setToggles(mVisualizerHelper, exp, spatial, decay);
 			mVisualizerView.setup(mVisualizerHelper, painter);
 			boolean showFps = settings.getBoolean(PrefKeys.VISUALIZER_SHOW_FPS, PrefDefaults.VISUALIZER_SHOW_FPS);
 			mVisualizerView.setFps(showFps);

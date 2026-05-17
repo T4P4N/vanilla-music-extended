@@ -36,6 +36,30 @@ THE SOFTWARE.
 		android:defaultValue="false"
 		android:dependency="enable_visualizer" />
 
+	<PreferenceCategory
+		android:key="category_visualizer_smoothing"
+		android:title="@string/visualizations"
+		android:dependency="enable_visualizer">
+		<CheckBoxPreference
+			android:key="visualizer_enable_exponential_decay"
+			android:title="@string/visualizer_exponential_decay_title"
+			android:summary="@string/visualizer_exponential_decay_summary"
+			android:defaultValue="true" />
+		<ch.blinkenlights.android.vanilla.SeekBarPreference
+			android:key="visualizer_gravity"
+			android:negativeButtonText="@null"
+			android:dialogLayout="@layout/seekbar_pref"
+			android:title="@string/visualizer_gravity_title"
+			android:defaultValue="85"
+			vanilla:sbpMaxValue="100"
+			android:dependency="visualizer_enable_exponential_decay" />
+		<CheckBoxPreference
+			android:key="visualizer_enable_spatial_filter"
+			android:title="@string/visualizer_spatial_filter_title"
+			android:summary="@string/visualizer_spatial_filter_summary"
+			android:defaultValue="true" />
+	</PreferenceCategory>
+
 	<ListPreference
 		android:key="visualizer_type"
 		android:title="@string/visualizer_type_title"

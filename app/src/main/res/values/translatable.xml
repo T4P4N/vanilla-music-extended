@@ -306,6 +306,11 @@ THE SOFTWARE.
 	<string name="visualizer_enable_fill_fft_wave">Enable Spectrum Line fill</string>
 	<string name="visualizer_enable_fill_fft_cline">Enable Circle Line fill</string>
 	<string name="visualizer_show_fps">Show FPS</string>
+	<string name="visualizer_exponential_decay_title">Enable Exponential decay</string>
+	<string name="visualizer_exponential_decay_summary">Apply gravity effect to make movements smoother</string>
+	<string name="visualizer_gravity_title">Gravity</string>
+	<string name="visualizer_spatial_filter_title">Enable Spatial filter</string>
+	<string name="visualizer_spatial_filter_summary">Smooth out visualizations by averaging neighboring frequencies</string>
 	<string name="fft_bar_path_num">FFT Circle Wave count</string>
 	<string name="fft_bar_path_amp">FFT Circle Wave amplitude</string>
 	<string name="fft_bar_path_gap">FFT Circle Wave radius</string>
